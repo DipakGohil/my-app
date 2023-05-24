@@ -1,0 +1,107 @@
+.bcolor {
+    background-color: azure;
+    font-size: larger;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+}
+
+.center {
+   font-family: 'Times New Roman', Times, serif;
+   text-align: left;
+   margin-left: 300px;
+   font-style: italic;
+
+}
+
+
+
+.abc {
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+   
+}
+
+.footer {
+    background-color: aquamarine;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.signin{
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: right;
+    
+}
+
+.txt{
+    margin-right: 10px;
+    margin-top: 15px;
+    margin-right: 25px;
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+.copywrite{
+    display: flex;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.address{
+    height: auto;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+}
+
+.links{
+    height: auto;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+}
+
+.services{
+    height: auto;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.map{
+    margin: 5px;
+    border:0;
+}
+
+.services a{
+    text-decoration: none;
+    color: black;
+}
+
+.services p{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+}
+
+.links a{
+    text-decoration: none;
+    color: black;
+}
+
+.links p{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+}
+
