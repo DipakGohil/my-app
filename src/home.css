@@ -1,6 +1,6 @@
 .bcolor {
     background-color: azure;
-    font-size: larger;
+        
     width: 100%;
     height: 100%;
     text-align: center;
@@ -29,6 +29,7 @@
     padding: 5px;
     display: flex;
     flex-direction: row;
+    margin-top: 10px;
 }
 
 .signin{

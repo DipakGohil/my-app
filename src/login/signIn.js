@@ -4,8 +4,13 @@ import '../home.css';
 import { useNavigate } from 'react-router-dom';
 import Home from '../Home';
 import SignUp from './signUp';
+import { Storedata } from '../utils/comman';
+import { useState } from 'react';
 
 const SignIn = () => {
+    const [userName,setUserName] = useState('');
+    const [password,setPassword] = useState('');
+
     const navigate = useNavigate();
     const home = () => {
        navigate("/",{replace:true})
@@ -15,9 +20,15 @@ const SignIn = () => {
         navigate("/signUp",{replace:true})
     };
 
+    const handleSignin = (e)=>{
+
+    }
+    
+    
   return (
     <div className='main'>
         <div class="abc">
+        
             <img src="./techamdavad-logo.png" height="80" width="120"/>
                 <div class="signin">
                     <p className="txt" onClick={home}> Home </p>
@@ -32,7 +43,11 @@ const SignIn = () => {
                 <input type="text" id="user" /> <br/> <br/>
                 <label for="password"> Password</label>
                 <input type="password" id="password" /> <br/> <br/>
-                <input type="button" value="Submit" />
+                <input type="button" value="Submit" onClick={
+                                () => {
+                                    handleSignin();
+                                }
+                            }/>
 
             </div>
         </div>
