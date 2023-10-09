@@ -1,20 +1,23 @@
 import '../App.css';
 import Home from '../Home';
 import '../home.css';
-import { useNavigate } from 'react-router-dom';
-import SignIn from './signIn';
+import { json, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Storedata } from '../utils/comman';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { setNameState } from '../nameSlice';
+import { setNumberState } from '../numberSlice';
 
 
 const SignUp = () => {
     const navigate = useNavigate();
-    const [name, setName] = useState('');
-    const [number, setNumber] = useState('');
+    //const [name, setName] = useState('');
+   // const [number, setNumber] = useState('');
     const [email, setEmail] = useState('');
     const [userName, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [DOB, setDOB] = useState('');
+    const [DateOfBirth, setDateOfBirth] = useState('');
     const [gender, setGender] = useState('');
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
@@ -23,47 +26,51 @@ const SignUp = () => {
     const [emailError, setEmailError] = useState('');
     const [userNameError, setUserNameError] = useState('');
     const [passwordError, setPasswordError] = useState('');
-    const [DOBError, setDOBError] = useState('');
+    const [DateOfBirthError, setDateOfBirthError] = useState('');
     const [addressError, setAddresserror] = useState('');
     const [SignupError, setSignupError] = useState('');
-    const win = window.sessionStorage;
 
-  /*  useEffect( () =>{
-        if(win.getItem('name'))
-        setName(win.getItem('name'));
-        if(win.getItem('number'))
-        setNumber(win.getItem('number'));
-        if(win.getItem('email'))
-        setEmail(win.getItem('email'));
-        if(win.getItem('username'))
-        setUsername(win.getItem('username'));
-        if(win.getItem('password'))
-        setPassword(win.getItem('password'));
-        if(win.getItem('DOB'))
-        setDOB(win.getItem('DOB'));
-        if(win.getItem('gender'))
-        setGender(win.getItem('gender'));
-        if(win.getItem('address'))
-        setAddress(win.getItem('address'));
-    }, [] )
+    const name = useSelector((state) => state.name.currentState);
+    const number = useSelector((state) => state.number.currentState);
+    const dispatch = useDispatch();
 
-    useEffect(()=>{
-        console.log("calling empty useeffecr");
-    },[]);
+    
+   /* const win = window.localStorage;
+
+    useEffect(() => {
+        if (win.getItem('name'))
+            setName(win.getItem('name'));
+        if (win.getItem('number'))
+            setNumber(win.getItem('number'));
+        if (win.getItem('email'))
+            setEmail(win.getItem('email'));
+        if (win.getItem('username'))
+            setUsername(win.getItem('username'));
+        if (win.getItem('password'))
+            setPassword(win.getItem('password'));
+        if (win.getItem('DateOfBirth'))
+            setDateOfBirth(win.getItem('DateOfBirth'));
+        if (win.getItem('gender'))
+            setGender(win.getItem('gender'));
+        if (win.getItem('address'))
+            setAddress(win.getItem('address'));
+    }, []);
+
+   
 
     useEffect(
         () => {
-            win.setItem('name :',name);
-            win.setItem('number :',number);
-            win.setItem('email :',email);
-            win.setItem('username :',userName);
-            win.setItem('password :',password);
-            win.setItem('DOB :',DOB);
-            win.setItem('gender :',gender);
-            win.setItem('address :',address);
-            },[name,number,email,userName,password,DOB,gender,address])*/
+            win.setItem('name :', name);
+            win.setItem('number :', number);
+            win.setItem('email :', email);
+            win.setItem('username :', userName);
+            win.setItem('password :', password);
+            win.setItem('DateOfBirth :', DateOfBirth);
+            win.setItem('gender :', gender);
+            win.setItem('address :', address);
+        }, [name, number, email, userName, password, DateOfBirth, gender, address])
 
-          
+*/
 
     const home = () => {
         navigate("/", { replace: true })
@@ -74,35 +81,66 @@ const SignUp = () => {
     };
 
     const handleSignup = () => {
-        console.log(name + " " + number + " " + email + " " + userName + " " +
-            password + " " + DOB + " " + gender + " " + city + " " + address);
-        
-            if(name === ""){
-                setNameError("Name is Required");
-            }
-            else if(number === ""){
-                setNumberError("Number is Required");
-            }
-            else if(email === ""){
-                setEmailError("Email is Required");
-            }
-            else if(userName === ""){
-                setUserNameError("Username is Required");
-            }
-            else if(password === ""){
-                setPasswordError("Password is Required");
-            }
-            else if(DOB === ""){
-                setDOBError("Date of Birth is Required");
-            }
-            else if(address === ""){
-                setAddresserror("Address is required");
-            }
-            else{
-                Storedata(name,number,email,userName,password,DOB,gender,address,localStorage);
-                setSignupError("succsesfully registerd");
-            }
-          
+
+
+
+
+
+
+
+        //  console.log(name + " " + number + " " + email + " " + userName + " " +
+        //     password + " " + DateOfBirth + " " + gender + " " + city + " " + address);
+
+        if (name === "") {
+            setNameError("Name is Required");
+        }
+        else if (number === "") {
+            setNumberError("Number is Required");
+        }
+        else if (email === "") {
+            setEmailError("Email is Required");
+        }
+        else if (userName === "") {
+            setUserNameError("Username is Required");
+        }
+        else if (password === "") {
+            setPasswordError("Password is Required");
+        }
+        else if (DateOfBirth === "") {
+            setDateOfBirthError("Date of Birth is Required");
+        }
+        else if (address === "") {
+            setAddresserror("Address is required");
+        }
+        else {
+            //Storedata(name,number,email,userName,password,DateOfBirth,gender,address,localStorage);
+            axios.get("http://localhost:50000/signUp",
+                {
+                    params: {
+                        name: name,
+                        number: number,
+                        email: email,
+                        userName: userName,
+                        password: password,
+                        DateOfBirth: DateOfBirth,
+                        gender: gender,
+                        address: address,
+                        city: city,
+                    }
+                })
+                .then((response) => {
+                    console.log(response);
+                    setSignupError("succsesfully registerd");
+                });
+
+
+
+
+        }
+
+
+
+
     };
 
 
@@ -125,11 +163,11 @@ const SignUp = () => {
                                 onChange={(e) => {
                                     const re = /^[a-zA-Z ]+$/;
                                     if (e.target.value === "" || re.test(e.target.value)) {
-                                        setName(e.target.value);
+                                        dispatch(setNameState(e.target.value));
                                     }
                                 }
                                 } /> <br /> <br />
-                             
+
                         </div>
                         <label>{nameError}</label>
                         <div className="form2">
@@ -138,7 +176,7 @@ const SignUp = () => {
                                 onChange={(e) => {
                                     const re = /^[0-9]+$/;
                                     if (e.target.value === "" || re.test(e.target.value)) {
-                                        setNumber(e.target.value);
+                                        dispatch(setNumberState(e.target.value));
                                     }
                                 }
                                 } /> <br /> <br />
@@ -170,24 +208,24 @@ const SignUp = () => {
                                 onChange={(e) => {
                                     const re = /^[A-Za-z0-9_]+$/;
                                     if (e.target.value === "" || re.test(e.target.value)) {
-                                    setPassword(e.target.value);
+                                        setPassword(e.target.value);
                                     }
                                 }} /> <br /> <br />
                         </div>
                         <label>{passwordError}</label>
                         <div className="form2">
-                            <label for="dob"> DOB : </label>
-                            <input type="date" id="dob" value={DOB}
+                            <label for="DateOfBirth"> DateOfBirth : </label>
+                            <input type="date" id="DateOfBirth" value={DateOfBirth}
                                 onChange={(e) => {
-                                   
-                                        setDOB(e.target.value);
-                                    
+
+                                    setDateOfBirth(e.target.value);
+
                                 }} /> <br /> <br />
                         </div>
-                        <label>{DOBError}</label>
+                        <label>{DateOfBirthError}</label>
                         <div className="form2">
                             <label for="gender"> Gender : </label>
-                            <input type="radio" id="gender" name="gender" value="Male" 
+                            <input type="radio" id="gender" name="gender" value="Male"
                                 onChange={(e) => {
                                     if (e.target.value === "Male") {
                                         setGender("Male");
@@ -236,9 +274,9 @@ const SignUp = () => {
                             <textarea rows="5" cols="20" name="address" id="address" value={address}
                                 onChange={(e) => {
                                     setAddress(e.target.value);
-                                      }}> </textarea>
+                                }}> </textarea>
                             <br /> <br />
-                            
+
                             <label>{addressError}</label>
                             <br /> <br />
                             <label>{SignupError}</label>
